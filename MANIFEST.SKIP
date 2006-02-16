@@ -1,0 +1,6 @@
+^[\.\#]
+\.bak$
+~$
+^Makefile$
+blib
+pm_
