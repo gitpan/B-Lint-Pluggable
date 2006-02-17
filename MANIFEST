@@ -10,4 +10,5 @@ t/02plugin.t
 t/lint.t
 t/pod-coverage.t
 t/pod.t
+t/test.pl
 META.yml                                 Module meta-data (added by MakeMaker)

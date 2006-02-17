@@ -8,11 +8,11 @@ B::Lint::Pluggable - Adds plugin support to B::Lint
 
 =head1 VERSION
 
-Version 0.01
+Version 0.01_02
 
 =cut
 
-our $VERSION = '0.01_01';
+our $VERSION = '0.01_02';
 
 =head1 SYNOPSIS
 
@@ -45,12 +45,12 @@ local $_ = do {
         local $_ = File::Spec->catfile( $_, "B", "Lint.pm" );
         if (-e) {
             @ARGV = $_;
+            $INC{'B/Lint.pm'} = $_;
             last;
         }
     }
 
     local $/;
-    no warnings;
     <>;
 };
 
@@ -159,12 +159,10 @@ sub register_plugin {
     }
 
     ###########################################################################
-    delete $INC{'B/Lint.pm'};
     {
 
         package B::Lint;
-        no warnings 'redefine';
-        eval;
+        eval "#line " . __LINE__ . " \"" . __FILE__ . "\"\n$_";
     }
     die $@ if $@;
 
